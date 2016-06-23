@@ -1,36 +1,63 @@
-port module testInterop exposing (..)
+port module TestInterop exposing (..)
 
 import Html exposing (..)
 import Html.App as Html
-import Html.Events exposing (onClick)
+import Html.Events exposing (..)
 
-main = Html.beginnerProgram 
+import String
+
+main = Html.program 
   {
-    model = model
+    init = init
   , view = view
   , update = update
   , subscriptions = subscriptions
   }
 
-type alias Model = Int
+type alias Model =   
+  {
+    data : String,
+    dataProcessedItems : List String 
+  }
 
-model : Model
-model = Int
---  {
---    data : String,
---    dataProcessed : List String 
---  }
 
-type Msg = Inc
+init : (Model, Cmd Msg)
+init = (Model "" [], Cmd.none)
 
-update : Msg -> Model -> Model
-update msg n =
+-- update
+
+type Msg = 
+  Change String
+  | Check
+  | Suggest (List String)
+  
+port check : String -> Cmd msg
+
+update : Msg -> Model -> (Model, Cmd Msg)
+update msg model =
   case msg of 
-    Inc -> n + 1
+    Change data -> 
+      (Model data [], Cmd.none)
+      
+    Check ->
+      (model, check model.data)
+      
+    Suggest newDataItems ->
+      (Model model.data newDataItems, 
+        Cmd.none)
+        
+-- subscriptions
+
+port dataProcessedItems : (List String -> msg) -> Sub msg
+
+subscriptions : Model -> Sub Msg
+subscriptions model = dataProcessedItems Suggest
     
 view : Model -> Html Msg
-view n = div [] 
-  [ button [onClick Inc]
-      [ text "+"]
-  ,   text <| toString n
+view model = div [] 
+  [ 
+    input [ onInput Change ] []
+  , button [ onClick Check ] [ text "check"]
+  , div [] [ text <| String.join ", " model.dataProcessedItems ]
   ]
+  
