@@ -36,7 +36,8 @@ type Msg =
   | Check
   | Suggest (List String)
   
-port check : List String -> Cmd msg
+--port check : List String -> Cmd msg
+port check : List WheelItem -> Cmd msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -47,7 +48,8 @@ update msg model =
 
     Check ->
 --      (model, check model.wheelItems)
-      (model, check <| wheelItemNames model.wheelItems)
+--      (model, check <| wheelItemNames model.wheelItems)
+      (model, check model.wheelItems)
 
     Suggest newDataItems ->
       (Model (createNewWheelStrings <| createFullListFromResponses newDataItems)
