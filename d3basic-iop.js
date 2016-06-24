@@ -191,7 +191,9 @@ var arc = d3.svg.arc()
 var pie = d3.layout.pie()
   .startAngle(-90 * Math.PI/180)
   .endAngle(-90 * Math.PI/180 + 2*Math.PI)
-  .value(function(d) { return d.value; })
+  .value(function(d) {
+    return d.value;
+  })
   .padAngle(.01)
   .sort(null);
 
@@ -303,6 +305,6 @@ var app = Elm.TestInterop.embed(node);
 
 app.ports.check.subscribe( data => {
 
-  var dataProcessedItems = [data.toUpperCase()];
+  var dataProcessedItems = [data[0].toUpperCase()];
   app.ports.dataProcessedItems.send(dataProcessedItems);
 });

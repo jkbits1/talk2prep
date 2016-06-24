@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 
 import String
 
-main = Html.program 
+main = Html.program
   {
     init = init
   , view = view
@@ -16,13 +16,13 @@ main = Html.program
 
 type alias Model =   
   {
-    data : String,
+    wheelItems : List String,
     dataProcessedItems : List String 
   }
 
 
 init : (Model, Cmd Msg)
-init = (Model "" [], Cmd.none)
+init = (Model ["1","2","3","4","5","6","7","8"] [], Cmd.none)
 
 -- update
 
@@ -31,19 +31,19 @@ type Msg =
   | Check
   | Suggest (List String)
   
-port check : String -> Cmd msg
+port check : List String -> Cmd msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of 
     Change data -> 
-      (Model data [], Cmd.none)
+      (Model [data] [], Cmd.none)
       
     Check ->
-      (model, check model.data)
+      (model, check model.wheelItems)
       
     Suggest newDataItems ->
-      (Model model.data newDataItems, 
+      (Model model.wheelItems newDataItems,
         Cmd.none)
         
 -- subscriptions
