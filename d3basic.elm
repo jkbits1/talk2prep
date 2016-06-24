@@ -14,15 +14,42 @@ main = Html.program
   , subscriptions = subscriptions
   }
 
+-- tuple or record?
+type alias WheelItem =
+  {
+    name : String
+  , value : Int
+  }
+
+type alias WheelData = List WheelItem
+
+wheelData : WheelData
+wheelData = [
+  {name = "One",    value = 15},
+  {name = "Two",    value = 9},
+  {name = "Three",  value = 9},
+  {name = "Four",   value = 19},
+  {name = "Five",   value = 12},
+  {name = "Six",    value = 14},
+  {name = "Seven",  value = 21},
+  {name = "Eight",  value = 18},
+  {name = "Nine",   value = 8}
+  ]
+
+wheelItemNames : List String
+wheelItemNames = List.map .name wheelData
+
 type alias Model =   
   {
-    wheelItems : List String,
+    wheelItems : List WheelItem,
     dataProcessedItems : List String 
   }
 
+initialModel : Model
+initialModel = {wheelItems = wheelData, dataProcessedItems = [] }
 
 init : (Model, Cmd Msg)
-init = (Model ["1","2","3","4","5","6","7","8"] [], Cmd.none)
+init = ( initialModel, Cmd.none)
 
 -- update
 
@@ -37,15 +64,17 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of 
     Change data -> 
-      (Model [data] [], Cmd.none)
-      
+--      (Model [data] [], Cmd.none)
+      (initialModel, Cmd.none)
+
     Check ->
-      (model, check model.wheelItems)
-      
+--      (model, check model.wheelItems)
+      (model, check wheelItemNames)
+
     Suggest newDataItems ->
-      (Model model.wheelItems newDataItems,
-        Cmd.none)
-        
+--      (Model model.wheelItems newDataItems, Cmd.none)
+      (initialModel, Cmd.none)
+
 -- subscriptions
 
 port dataProcessedItems : (List String -> msg) -> Sub msg
