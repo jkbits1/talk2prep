@@ -135,11 +135,14 @@ var svg = d3.select("#chart").append("svg")
 var donutData = [
   {name: "Antelope", 	value: 15},
   {name: "Bear", 		value: 9},
+  {name: "Bear2", 		value: 9},
   {name: "Cheetah", 	value: 19},
   {name: "Dolphin", 	value: 12},
   {name: "Elephant",	value: 14},
   {name: "Flamingo", 	value: 21},
   {name: "Giraffe", value: 18},
+  // {name: "Giraffe", value: 9},
+  // {name: "Giraffe2", value: 9},
   {name: "Other", 	value: 8}
 ];
 
@@ -186,14 +189,18 @@ var colorScale = d3.scale.linear()
 var arc = d3.svg.arc()
   .innerRadius(width*0.75/2)
   .outerRadius(width*0.75/2 + 30);
+// .innerRadius(width*0.55/2)
+//   .outerRadius(width*0.55/2 + 30);
 
 //Turn the pie chart 90 degrees counter clockwise, so it starts at the left
 var pie = d3.layout.pie()
   .startAngle(-90 * Math.PI/180)
   .endAngle(-90 * Math.PI/180 + 2*Math.PI)
-  .value(function(d) {
-    return d.value;
-  })
+  .value(
+    d => {
+      return d.value;
+    }
+  )
   .padAngle(.01)
   .sort(null);
 
@@ -211,11 +218,13 @@ svg.selectAll(".donutArcSlices")
   // });
 // animals, centered (section of this code below flips the lower text)
   .attr("d", arc)
-  .style("fill", function(d,i) {
+  .style("fill", (d,i) => {
     if(i === 7) return "#CCCCCC"; //Other
     else return colorScale(i);
   })
-  .each(function(d,i) {
+  // note - can't convert this to fat arrow syntax,
+  // something inside function gets broken, maybe regex syntax issue?
+  .each( function (d, i) {
 
     //A regular expression that captures all in between the start of a string (denoted by ^) and a capital letter L
     //The letter L denotes the start of a line segment
@@ -257,6 +266,7 @@ svg.selectAll(".donutArcSlices")
       .attr("id", "donutArc"+i)
       .attr("d", newArc)
       .style("fill", "none");
+
   });
 
 // text, left aligned, centered, flipped (see specific sections below)
@@ -277,7 +287,7 @@ svg.selectAll(".donutText")
 
   // flipped
   //Move the labels below the arcs for those slices with an end angle greater than 90 degrees
-  .attr("dy", function(d,i) {
+  .attr("dy", (d,i) => {
     return (d.endAngle > 90 * Math.PI/180 ? 18 : -11);
   })
 
@@ -285,20 +295,18 @@ svg.selectAll(".donutText")
   .append("textPath")
   // animals, left aligned
   // .attr("xlink:href",function(d,i){return "#donutArc"+i;})
-  // .text(function(d){return d.name;});
+  // .text( d => d.name );
 
-  // animals, centered
+  // animals, centered, flipped
   .attr("startOffset","50%")
   .style("text-anchor","middle")
-  .attr("xlink:href",function(d,i){return "#donutArc"+i;})
+  .attr("xlink:href", (d,i) => "#donutArc"+i )
 
   // animals, centered
-  // .text(function(d){return d.name;});
+  // .text(d => d.name);
 
   // animals, flipped
-  .text(function(d){
-    return d.data.name;
-  });
+  .text( d => d.data.name );
 
 var node = document.getElementById("d3basic");
 var app = Elm.TestInterop.embed(node);
