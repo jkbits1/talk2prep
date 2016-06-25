@@ -159,21 +159,25 @@ function showCircle (donutDataList) {
     .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
 
 // test
-//   svg = svg.selectAll("g")
-//     // .data(circles, d => {
-//     //   return d.name;
-//     // })
-//     .data(circles)
-//     .enter().append("g");
-//
-//   svg = svg.selectAll("g2")
-//     .data( d=> {
-//       return d;
-//     })
-//     .enter().append("g2")
-//     .text( d => {
-//       return d;
-//     });
+  svg = svg.selectAll("g")
+    // .data(circles)
+    // .data(circles, d => {
+    //   return d.name;
+    // })
+    .data(circles)
+    .enter().append("g");
+    // .enter().append("g2");
+
+    // svg = svg.selectAll("g2");
+
+  svg = svg.selectAll("g2")
+    .data( d=> {
+      return d;
+    })
+    .enter().append("g2")
+    .text( d => {
+      return d;
+    });
 
   // NOTE set MATRIX
   // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
@@ -239,15 +243,15 @@ function showCircle (donutDataList) {
 //Create the donut slices
 
 // experiments
-//     svg = d3.select("#chart").selectAll("g")
-//     //
-//     //
-//     // svg
-//     .each(function (d) {
-//       this._value = d.value;
-//     })
-  svg.selectAll(".donutArcSlices")
-    // .selectAll(".donutArcSlices")
+    svg = d3.select("#chart").selectAll("g")
+    //
+    //
+    // svg
+    .each(function (d) {
+      this._value = d.value;
+    })
+  // svg.selectAll(".donutArcSlices")
+    .selectAll(".donutArcSlices")
     .data(pie(donutData))
     .enter().append("path")
     .attr("class", "donutArcSlices")
