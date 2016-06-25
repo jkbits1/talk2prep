@@ -349,7 +349,19 @@ function showCircle (donutDataList) {
     //   .data(donutData)
 
     // flipped
-    .data(pie(donutData))
+    // .data(pie(donutData))
+    .data(
+      function (d) {
+        var p;
+        if (d[0] == "a") {
+          // return pie(donutData);
+          return pie(donutDataList[0]);
+        }
+        else {
+          return pie(donutDataList[1]);
+        }
+      }
+    )
 
     // left aligned, centered, flipped
     .enter().append("text")

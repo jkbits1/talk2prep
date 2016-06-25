@@ -24,7 +24,11 @@ type alias Model =
   }
 
 initialModel : Model
-initialModel = {wheelDataList = [wheelData1, wheelData2], dataProcessedItems = [] }
+initialModel =
+  {
+    wheelDataList = [wheelData1, wheelData2],
+    dataProcessedItems = []
+  }
 
 init : (Model, Cmd Msg)
 init = ( initialModel, Cmd.none)
