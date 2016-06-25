@@ -375,17 +375,27 @@ function showCircle (donutDataList) {
     .attr("dy", (d, i) => {
       var dy = (d.endAngle > 90 * Math.PI / 180 ? 18 : -11);
 
-      var adjDy;
+      var adjDy = dy;
 
-      if (d.data.sz == 6) {
-        adjDy = (-0.3 * dy) * 17;
+      if (dy < 0) {
+        if (d.data.sz == 6) {
+          adjDy = (-0.3 * dy) * 17;
+        }
+        else {
+          adjDy = dy * -1;
+        }
       }
       else {
-        adjDy = (-0.7 * dy) * 2;
+        if (d.data.sz == 6) {
+          adjDy = (-0.9 * dy) * 2;
+        }
+        else {
+          adjDy = dy * 0.12;
+        }
       }
 
       if (i >= 4) {
-        adjDy -= 10;
+        // adjDy -= 10;
       }
 
       return adjDy;
