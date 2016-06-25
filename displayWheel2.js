@@ -158,6 +158,7 @@ function circles() {
     // donutDataList[0], donutDataList[1]
     ["a", "b", "c"]
     , ["x", "y", "z"]
+    , ["m", "n", "o"]
   ]
 }
 
@@ -211,31 +212,17 @@ function showCircle (donutDataList) {
     ;
 
 // test
-//   svg = svg.selectAll("g")
   svg = svg.selectAll("g")
     .data(circles)
     // .data(circles, d => {
     //   return d.name;
     // })
-    // .enter().append("g");
     .enter().append("g")
     .attr("class", "circles")
-  // .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
-
   ;
-//
-//   svg = svg.selectAll("g3")
-//     .data( d=> {
-//       return d;
-//     })
-//     .enter().append("g3")
-//     .text( d => {
-//       return d;
-//     });
 
   // NOTE set MATRIX
   // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
-
 
 
 //Turn the pie chart 90 degrees counter clockwise, so it starts at the left
@@ -249,6 +236,19 @@ function showCircle (donutDataList) {
     )
     .padAngle(.01)
     .sort(null);
+
+  function getDataList (d) {
+    var n = 2;
+
+    if (d[0] == "a") {
+      n = 0;
+    }
+    else if (d[0] == "x") {
+      n = 1;
+    }
+
+    return pie(donutDataList[n]);
+  }
 
   donuts();
 
@@ -268,33 +268,24 @@ function showCircle (donutDataList) {
 
   svg.selectAll(".donutArcSlices")
     // .selectAll(".donutArcSlices")
-    .data(
-      function (d) {
-        var p;
-        if (d[0] == "a") {
-          // return pie(donutData);
-          return pie(donutDataList[0]);
-        }
-        else {
-          return pie(donutDataList[1]);
-        }
-      }
-    )
+    .data(getDataList)
     .enter().append("path")
     .attr("class", "donutArcSlices")
+
     // animals, left aligned
     // .attr("id", function(d,i) { return "donutArc"+i; })
-    // .attr("d", arc)
-    // .style("fill", function(d,i) {
-    //   if(i === 7) return "#CCCCCC"; //Other
-    //   else return colorScale(i);
-    // });
-    // animals, centered (section of this code below flips the lower text)
+
+    // animals, centered, left aligned, flipped
     .attr("d", arc)
     .style("fill", (d, i) => {
       if (i === 7) return "#CCCCCC"; //Other
       else return colorScale(i);
     })
+    // animals, left aligned
+    // ;
+
+    // animals, centered (section of this code below flips the lower text)
+    //
     // note - can't convert this to fat arrow syntax,
     // something inside function gets broken, maybe regex syntax issue?
     .each(function (d, i) {
@@ -349,19 +340,7 @@ function showCircle (donutDataList) {
     //   .data(donutData)
 
     // flipped
-    // .data(pie(donutData))
-    .data(
-      function (d) {
-        var p;
-        if (d[0] == "a") {
-          // return pie(donutData);
-          return pie(donutDataList[0]);
-        }
-        else {
-          return pie(donutDataList[1]);
-        }
-      }
-    )
+    .data( getDataList )
 
     // left aligned, centered, flipped
     .enter().append("text")
@@ -381,16 +360,22 @@ function showCircle (donutDataList) {
         if (d.data.sz == 6) {
           adjDy = (-0.3 * dy) * 17;
         }
+        else if (d.data.sz == 4) {
+          adjDy = (-0.3 * dy) * 27;
+        }
         else {
-          adjDy = dy * -1;
+          adjDy = dy * -1.9;
         }
       }
       else {
         if (d.data.sz == 6) {
-          adjDy = (-0.9 * dy) * 2;
+          adjDy = (-0.9 * dy) * 2.4;
+        }
+        else if (d.data.sz == 4) {
+          adjDy = (-0.9 * dy) * 4.8;
         }
         else {
-          adjDy = dy * 0.12;
+          adjDy = dy * -0.44;
         }
       }
 

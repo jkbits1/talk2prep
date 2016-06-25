@@ -23,28 +23,68 @@ wheelData1 = [
 --  {name = "Seven",  value = 21},
 --  {name = "Eight",  value = 18},
 --  {name = "Nine",   value = 8}
-  {name = "One",    value = 15, sz = 8},
-  {name = "Two",    value = 9, sz = 8},
-  {name = "Three",  value = 9, sz = 8},
-  {name = "Four",   value = 19, sz = 8},
-  {name = "Five",   value = 12, sz = 8},
-  {name = "Six",    value = 14, sz = 8},
-  {name = "Seven",  value = 21, sz = 8},
-  {name = "Eight",  value = 18, sz = 8},
-  {name = "Nine",   value = 8, sz = 8}
+--  {name = "One",    value = 15, sz = 8},
+--  {name = "Two",    value = 9, sz = 8},
+--  {name = "Three",  value = 9, sz = 8},
+--  {name = "Four",   value = 19, sz = 8},
+--  {name = "Five",   value = 12, sz = 8},
+--  {name = "Six",    value = 14, sz = 8},
+--  {name = "Seven",  value = 21, sz = 8},
+--  {name = "Eight",  value = 18, sz = 8},
+--  {name = "Nine",   value = 8, sz = 8}
+  {name = "1",    value = 15, sz = 8},
+  {name = "2",    value = 9, sz = 8},
+  {name = "3",  value = 9, sz = 8},
+  {name = "4",   value = 19, sz = 8},
+  {name = "5",   value = 12, sz = 8},
+  {name = "6",    value = 14, sz = 8},
+  {name = "7",  value = 21, sz = 8},
+  {name = "8",  value = 18, sz = 8},
+  {name = "9",   value = 8, sz = 8}
   ]
 
 wheelData2 : WheelData
 wheelData2 = [
-  {name = "OneX",    value = 15, sz = 6},
-  {name = "TwoX",    value = 9, sz = 6},
-  {name = "ThreeX",  value = 9, sz = 6},
-  {name = "FourX",   value = 19, sz = 6},
-  {name = "FiveX",   value = 12, sz = 6},
-  {name = "SixX",    value = 14, sz = 6},
-  {name = "SevenX",  value = 21, sz = 6},
-  {name = "EightX",  value = 18, sz = 6},
-  {name = "NineX",   value = 8, sz = 6}
+--  {name = "OneX",    value = 15, sz = 6},
+--  {name = "TwoX",    value = 9, sz = 6},
+--  {name = "ThreeX",  value = 9, sz = 6},
+--  {name = "FourX",   value = 19, sz = 6},
+--  {name = "FiveX",   value = 12, sz = 6},
+--  {name = "SixX",    value = 14, sz = 6},
+--  {name = "SevenX",  value = 21, sz = 6},
+--  {name = "EightX",  value = 18, sz = 6},
+--  {name = "NineX",   value = 8, sz = 6}
+  {name = "1x",    value = 15, sz = 6},
+  {name = "2x",    value = 9, sz = 6},
+  {name = "3x",  value = 9, sz = 6},
+  {name = "4x",   value = 19, sz = 6},
+  {name = "5x",   value = 12, sz = 6},
+  {name = "6x",    value = 14, sz = 6},
+  {name = "7x",  value = 21, sz = 6},
+  {name = "8x",  value = 18, sz = 6},
+  {name = "9x",   value = 8, sz = 6}
+  ]
+
+wheelData3 : WheelData
+wheelData3 = [
+--  {name = "OneX",    value = 15, sz = 6},
+--  {name = "TwoX",    value = 9, sz = 6},
+--  {name = "ThreeX",  value = 9, sz = 6},
+--  {name = "FourX",   value = 19, sz = 6},
+--  {name = "FiveX",   value = 12, sz = 6},
+--  {name = "SixX",    value = 14, sz = 6},
+--  {name = "SevenX",  value = 21, sz = 6},
+--  {name = "EightX",  value = 18, sz = 6},
+--  {name = "NineX",   value = 8, sz = 6}
+  {name = "1-",    value = 15, sz = 4},
+  {name = "2-",    value = 9, sz = 4},
+  {name = "3-",  value = 9, sz = 4},
+  {name = "4-",   value = 19, sz = 4},
+  {name = "5-",   value = 12, sz = 4},
+  {name = "6-",    value = 14, sz = 4},
+  {name = "7-",  value = 21, sz = 4},
+  {name = "8-",  value = 18, sz = 4},
+  {name = "9-",   value = 8, sz = 4}
   ]
 
 wheelItemNames : List WheelItem -> List String
