@@ -118,79 +118,6 @@
 //   {month: "December",	startDateID: 334, 	endDateID: 364}
 // ];
 
-function showCircle (donutDataList) {
-
-  var donutData = donutDataList[0];
-
-
-  // animals
-//Create a color scale
-  var colorScale = d3.scale.linear()
-    .domain([1, 3.5, 6])
-    .range(["#2c7bb6", "#ffffbf", "#d7191c"])
-    .interpolate(d3.interpolateHcl);
-
-//Create an arc function
-  var arc = d3.svg.arc()
-    // .innerRadius(width * 0.75 / 2)
-    // .outerRadius(width * 0.75 / 2 + 30);
-      .innerRadius(function (d) {
-        return d.data.sz * 0.1 * width * 0.75 / 2;
-      })
-      .outerRadius(function (d) {
-        return d.data.sz * 0.1 * width * 0.75 / 2 + 30;
-      })
-  // .cornerRadius(6)
-    ;
-// .innerRadius(width*0.55/2)
-//   .outerRadius(width*0.55/2 + 30);
-
-// Set-up - months on chart, animals on chart
-  var screenWidth = window.innerWidth;
-
-  var margin = {left: 20, top: 20, right: 20, bottom: 20},
-    width = Math.min(screenWidth, 500) - margin.left - margin.right,
-    height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
-
-  var svg = d3.select("#chart").append("svg")
-    .attr("width", (width + margin.left + margin.right))
-    .attr("height", (height + margin.top + margin.bottom))
-    .append("g").attr("class", "wrapper")
-    .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
-
-// test
-  svg = svg.selectAll("g")
-    // .data(circles)
-    // .data(circles, d => {
-    //   return d.name;
-    // })
-    .data(circles)
-    .enter().append("g");
-    // .enter().append("g2");
-
-    // svg = svg.selectAll("g2");
-
-  svg = svg.selectAll("g2")
-    .data( d=> {
-      return d;
-    })
-    .enter().append("g2")
-    .text( d => {
-      return d;
-    });
-
-  // NOTE set MATRIX
-  // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
-
-  function circles() {
-    return [
-      // {name: "c1", value: 1, dataItems: donutDataList[0]}
-      // , {name: "c2", value: 2, dataItems: donutDataList[1]}
-      // donutDataList[0], donutDataList[1]
-      ["a", "b", "c"]
-      , ["x", "y", "z"]
-    ]
-  }
 
 //
 // //Creates a function that makes SVG paths in the shape of arcs with the specified inner and outer radius
@@ -224,6 +151,93 @@ function showCircle (donutDataList) {
 //   .attr("xlink:href",function(d,i){return "#monthArc_"+i;})
 //   .text(function(d){return d.month;});
 
+function circles() {
+  return [
+    // {name: "c1", value: 1, dataItems: donutDataList[0]}
+    // , {name: "c2", value: 2, dataItems: donutDataList[1]}
+    // donutDataList[0], donutDataList[1]
+    ["a", "b", "c"]
+    , ["x", "y", "z"]
+  ]
+}
+
+var svg;
+
+function showCircle (donutDataList) {
+
+  var donutData = donutDataList[0];
+
+
+  // animals
+//Create a color scale
+  var colorScale = d3.scale.linear()
+    .domain([1, 3.5, 6])
+    .range(["#2c7bb6", "#ffffbf", "#d7191c"])
+    .interpolate(d3.interpolateHcl);
+
+//Create an arc function
+  var arc = d3.svg.arc()
+    // .innerRadius(width * 0.75 / 2)
+    // .outerRadius(width * 0.75 / 2 + 30);
+      .innerRadius(function (d) {
+        return d.data.sz * 0.1 * width * 0.75 / 2;
+      })
+      .outerRadius(function (d) {
+        return d.data.sz * 0.1 * width * 0.75 / 2 + 30;
+      })
+  // .cornerRadius(6)
+    ;
+// .innerRadius(width*0.55/2)
+//   .outerRadius(width*0.55/2 + 30);
+
+// Set-up - months on chart, animals on chart
+  var screenWidth = window.innerWidth;
+
+  var margin = {left: 20, top: 20, right: 20, bottom: 20},
+    // width = Math.min(screenWidth, 500) - margin.left - margin.right,
+    // height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
+
+  width = Math.min(screenWidth, 1000) - margin.left - margin.right,
+    height = Math.min(screenWidth, 1000) - margin.top - margin.bottom;
+
+  // var
+    svg = d3.select("#chart").append("svg")
+    .attr("width", (width + margin.left + margin.right))
+    .attr("height", (height + margin.top + margin.bottom))
+    .append("g").attr("class", "wrapper")
+    // .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+    // .attr("transform", "translate(" + (width + margin.left) + "," + (height + margin.top) + ")")
+      .attr("transform", "translate(250,250)")
+    ;
+
+// test
+//   svg = svg.selectAll("g")
+  svg = svg.selectAll("g")
+    .data(circles)
+    // .data(circles, d => {
+    //   return d.name;
+    // })
+    // .enter().append("g");
+    .enter().append("g")
+    .attr("class", "circles")
+  // .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+
+  ;
+//
+//   svg = svg.selectAll("g3")
+//     .data( d=> {
+//       return d;
+//     })
+//     .enter().append("g3")
+//     .text( d => {
+//       return d;
+//     });
+
+  // NOTE set MATRIX
+  // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
+
+
+
 //Turn the pie chart 90 degrees counter clockwise, so it starts at the left
   var pie = d3.layout.pie()
     .startAngle(-90 * Math.PI / 180)
@@ -243,16 +257,29 @@ function showCircle (donutDataList) {
 //Create the donut slices
 
 // experiments
-    svg = d3.select("#chart").selectAll("g")
+//     svg = d3.select("#chart").selectAll("g")
     //
     //
     // svg
-    .each(function (d) {
-      this._value = d.value;
-    })
-  // svg.selectAll(".donutArcSlices")
-    .selectAll(".donutArcSlices")
-    .data(pie(donutData))
+    // .each(function (d) {
+    //   this._value = d.value;
+    //
+    // });
+
+  svg.selectAll(".donutArcSlices")
+    // .selectAll(".donutArcSlices")
+    .data(
+      function (d) {
+        var p;
+        if (d[0] == "a") {
+          // return pie(donutData);
+          return pie(donutDataList[0]);
+        }
+        else {
+          return pie(donutDataList[1]);
+        }
+      }
+    )
     .enter().append("path")
     .attr("class", "donutArcSlices")
     // animals, left aligned
@@ -315,13 +342,13 @@ function showCircle (donutDataList) {
 
     });
 
-// text, left aligned, centered, flipped (see specific sections below)
-//Append the label names on the outside
-  svg.selectAll(".donutText")
-  // left aligned and centered
-  //   .data(donutData)
+    // text, left aligned, centered, flipped (see specific sections below)
+    //Append the label names on the outside
+    svg.selectAll(".donutText")
+    // left aligned and centered
+    //   .data(donutData)
 
-  // flipped
+    // flipped
     .data(pie(donutData))
 
     // left aligned, centered, flipped
