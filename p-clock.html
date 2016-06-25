@@ -55,8 +55,12 @@
   var arcBody = d3.svg.arc()
       .startAngle(0)
       .endAngle(function(d) { return d.value * 2 * Math.PI; })
-      .innerRadius(function(d) { return d.index * radius; })
-      .outerRadius(function(d) { return (d.index + spacing) * radius; })
+      .innerRadius(function(d) {
+        return d.index * radius;
+      })
+      .outerRadius(function(d) {
+        return (d.index + spacing) * radius;
+      })
       .cornerRadius(6);
 
   var arcCenter = d3.svg.arc()

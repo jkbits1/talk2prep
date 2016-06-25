@@ -118,7 +118,32 @@
 //   {month: "December",	startDateID: 334, 	endDateID: 364}
 // ];
 
-function showCircle (donutData) {
+function showCircle (donutDataList) {
+
+  var donutData = donutDataList[0];
+
+
+  // animals
+//Create a color scale
+  var colorScale = d3.scale.linear()
+    .domain([1, 3.5, 6])
+    .range(["#2c7bb6", "#ffffbf", "#d7191c"])
+    .interpolate(d3.interpolateHcl);
+
+//Create an arc function
+  var arc = d3.svg.arc()
+    // .innerRadius(width * 0.75 / 2)
+    // .outerRadius(width * 0.75 / 2 + 30);
+      .innerRadius(function (d) {
+        return d.data.sz * 0.1 * width * 0.75 / 2;
+      })
+      .outerRadius(function (d) {
+        return d.data.sz * 0.1 * width * 0.75 / 2 + 30;
+      })
+  // .cornerRadius(6)
+    ;
+// .innerRadius(width*0.55/2)
+//   .outerRadius(width*0.55/2 + 30);
 
 // Set-up - months on chart, animals on chart
   var screenWidth = window.innerWidth;
@@ -135,30 +160,37 @@ function showCircle (donutData) {
 
 // test
   svg = svg.selectAll("g")
+    // .data(circles)
+    // .data(circles, d => {
+    //   return d.name;
+    // })
     .data(circles)
     .enter().append("g");
+    // .enter().append("g2");
+
+    // svg = svg.selectAll("g2");
+
+  svg = svg.selectAll("g2")
+    .data( d=> {
+      return d;
+    })
+    .enter().append("g2")
+    .text( d => {
+      return d;
+    });
+
+  // NOTE set MATRIX
+  // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
 
   function circles() {
     return [
-        {name: "c1", value: 1}
-      , {name: "c2", value: 2}
+      // {name: "c1", value: 1, dataItems: donutDataList[0]}
+      // , {name: "c2", value: 2, dataItems: donutDataList[1]}
+      // donutDataList[0], donutDataList[1]
+      ["a", "b", "c"]
+      , ["x", "y", "z"]
     ]
   }
-
-// animal data
-//   var donutData = [
-//     {name: "Antelope", value: 15},
-//     {name: "Bear", value: 9},
-//     {name: "Bear2", value: 9},
-//     {name: "Cheetah", value: 19},
-//     {name: "Dolphin", value: 12},
-//     {name: "Elephant", value: 14},
-//     {name: "Flamingo", value: 21},
-//     {name: "Giraffe", value: 18},
-//     // {name: "Giraffe", value: 9},
-//     // {name: "Giraffe2", value: 9},
-//     {name: "Other", value: 8}
-//   ];
 
 //
 // //Creates a function that makes SVG paths in the shape of arcs with the specified inner and outer radius
@@ -192,20 +224,6 @@ function showCircle (donutData) {
 //   .attr("xlink:href",function(d,i){return "#monthArc_"+i;})
 //   .text(function(d){return d.month;});
 
-// animals
-//Create a color scale
-  var colorScale = d3.scale.linear()
-    .domain([1, 3.5, 6])
-    .range(["#2c7bb6", "#ffffbf", "#d7191c"])
-    .interpolate(d3.interpolateHcl);
-
-//Create an arc function
-  var arc = d3.svg.arc()
-    .innerRadius(width * 0.75 / 2)
-    .outerRadius(width * 0.75 / 2 + 30);
-// .innerRadius(width*0.55/2)
-//   .outerRadius(width*0.55/2 + 30);
-
 //Turn the pie chart 90 degrees counter clockwise, so it starts at the left
   var pie = d3.layout.pie()
     .startAngle(-90 * Math.PI / 180)
@@ -218,8 +236,22 @@ function showCircle (donutData) {
     .padAngle(.01)
     .sort(null);
 
+  donuts();
+
+  function donuts ()
+  {
 //Create the donut slices
-  svg.selectAll(".donutArcSlices")
+
+// experiments
+    svg = d3.select("#chart").selectAll("g")
+    //
+    //
+    // svg
+    .each(function (d) {
+      this._value = d.value;
+    })
+  // svg.selectAll(".donutArcSlices")
+    .selectAll(".donutArcSlices")
     .data(pie(donutData))
     .enter().append("path")
     .attr("class", "donutArcSlices")
@@ -321,4 +353,6 @@ function showCircle (donutData) {
 
     // animals, flipped
     .text(d => d.data.name);
+
+}
 }

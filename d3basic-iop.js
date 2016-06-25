@@ -11,7 +11,7 @@ app.ports.check.subscribe( data => {
 
   showCircle(data);
 
-  var names = data.map(val => val.name);
+  var names = data[0].map(val => val.name);
 
   var dataProcessedItems = [names[0].toUpperCase()];
   app.ports.dataProcessedItems.send(dataProcessedItems);
