@@ -134,15 +134,16 @@ function showCircle (donutData) {
     .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
 
 // test
-//   svg = svg.selectAll("g")
-//     .data(circles)
-//     .enter().append("");
-//
-//   function circles() {
-//     return [
-//       {name: "c1", value: 1}
-//     ]
-//   }
+  svg = svg.selectAll("g")
+    .data(circles)
+    .enter().append("g");
+
+  function circles() {
+    return [
+        {name: "c1", value: 1}
+      , {name: "c2", value: 2}
+    ]
+  }
 
 // animal data
 //   var donutData = [
