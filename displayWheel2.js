@@ -194,20 +194,20 @@ function showCircle (donutDataList) {
   var screenWidth = window.innerWidth;
 
   var margin = {left: 20, top: 20, right: 20, bottom: 20},
-    // width = Math.min(screenWidth, 500) - margin.left - margin.right,
-    // height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
+    width = Math.min(screenWidth, 500) - margin.left - margin.right,
+    height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
 
-  width = Math.min(screenWidth, 1000) - margin.left - margin.right,
-    height = Math.min(screenWidth, 1000) - margin.top - margin.bottom;
+  // width = Math.min(screenWidth, 1000) - margin.left - margin.right,
+  //   height = Math.min(screenWidth, 1000) - margin.top - margin.bottom;
 
   // var
     svg = d3.select("#chart").append("svg")
     .attr("width", (width + margin.left + margin.right))
     .attr("height", (height + margin.top + margin.bottom))
     .append("g").attr("class", "wrapper")
-    // .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+    .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
     // .attr("transform", "translate(" + (width + margin.left) + "," + (height + margin.top) + ")")
-      .attr("transform", "translate(250,250)")
+    //   .attr("transform", "translate(250,250)")
     ;
 
 // test
@@ -373,7 +373,22 @@ function showCircle (donutDataList) {
     // flipped
     //Move the labels below the arcs for those slices with an end angle greater than 90 degrees
     .attr("dy", (d, i) => {
-      return (d.endAngle > 90 * Math.PI / 180 ? 18 : -11);
+      var dy = (d.endAngle > 90 * Math.PI / 180 ? 18 : -11);
+
+      var adjDy;
+
+      if (d.data.sz == 6) {
+        adjDy = (-0.3 * dy) * 17;
+      }
+      else {
+        adjDy = (-0.7 * dy) * 2;
+      }
+
+      if (i >= 4) {
+        adjDy -= 10;
+      }
+
+      return adjDy;
     })
 
     // left aligned, centered, flipped
