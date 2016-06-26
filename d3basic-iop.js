@@ -27,6 +27,7 @@ app.ports.check.subscribe( data => {
 
   var names = data[0].map(val => val.name);
 
-  var dataProcessedItems = [names[0].toUpperCase()];
+  // var dataProcessedItems = [names[0].toUpperCase()];
+  var dataProcessedItems = ["2"];
   app.ports.dataProcessedItems.send(dataProcessedItems);
 });
