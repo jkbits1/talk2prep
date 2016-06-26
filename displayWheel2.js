@@ -201,6 +201,8 @@ function showCircle (donutDataList) {
   // width = Math.min(screenWidth, 1000) - margin.left - margin.right,
   //   height = Math.min(screenWidth, 1000) - margin.top - margin.bottom;
 
+  svg = d3.select("#chart svg").remove();
+
   // var
     svg = d3.select("#chart").append("svg")
     .attr("width", (width + margin.left + margin.right))

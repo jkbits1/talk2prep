@@ -55,13 +55,23 @@ update msg model =
 --      (model, check <| wheelItemNames model.wheelItems)
       (model, check model.wheelDataList)
 
-    Suggest newDataItems ->
-      (Model [(createNewWheelStrings (headWD model.wheelDataList)
-                <| createFullListFromResponses
-                    (headWD model.wheelDataList) newDataItems)]
-        []
+    Suggest responses ->
+      (
+        newModelFromResponses model responses
         , Cmd.none)
 --    (Model model.wheelItems newDataItems, Cmd.none)
+
+newModelFromResponses model rs =
+  let newWheelData1 =
+    (createNewWheelStrings (headWD model.wheelDataList)
+                    <| createFullListFromResponses
+                        (headWD model.wheelDataList) rs)
+  in
+    {
+      wheelDataList =
+        [newWheelData1] ++ (drop 1 model.wheelDataList)
+    , dataProcessedItems = []
+    }
 
 -- subscriptions
 
