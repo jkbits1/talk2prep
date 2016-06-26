@@ -4,159 +4,14 @@
 
 "use strict";
 
-//Create the SVG
-// var svg = d3.select("body").append("svg")
-//     .attr("width", 400)
-//     .attr("height", 120);
-//
-// //Create an SVG path
-// svg.append("path")
-//   .attr("id", "wavy") //very important to give the path element a unique ID to reference later
-//   .attr("d", "M 10,90 Q 100,15 200,70 Q 340,140 400,30") //Notation for an SVG path, from bl.ocks.org/mbostock/2565344
-//   .style("fill", "none")
-//   .style("stroke", "#AAAAAA");
-//
-// //Create an SVG text element and append a textPath element
-// svg.append("text")
-//   .append("textPath") //append a textPath to the text element
-//   .attr("xlink:href", "#wavy") //place the ID of the path here
-//   .style("text-anchor","middle") //place the text halfway on the arc
-//   .attr("startOffset", "50%")
-//   .text("Yay, my text is on a wavy path");
-
-
-// var svg = d3.select("body").append("svg")
-//   .attr("width", 400)
-//   .attr("height", 120);
-//
-// //Create an SVG path
-// svg.append("path")
-//   .attr("id", "wavy") //very important to give the path element a unique ID to reference later
-//   .attr("d",
-//     // "M 10,90 Q 100,15 200,70 Q 340,140 400,30"
-//     "M 0,300 A 200,200 0 0,1 400,300"
-//   ) //Notation for an SVG path, from bl.ocks.org/mbostock/2565344
-//   .style("fill", "none")
-//   .style("stroke", "#AAAAAA");
-//
-// //Create an SVG text element and append a textPath element
-// svg.append("text")
-//   .append("textPath") //append a textPath to the text element
-//   .attr("xlink:href", "#wavy") //place the ID of the path here
-//   .style("text-anchor","middle") //place the text halfway on the arc
-//   .attr("startOffset", "50%")
-//   .text("Yay, my text is on a wavy path");
-//
-// // svg.selectAll("path")
-// //   .transition().duration(2000).delay(2000)
-// //   .attr("d", "M75,300 A125,125 0 0,1 325,300");
-//
-// svg.selectAll(".monthArc")
-//   .data(pie(monthData))
-//   .enter().append("path")
-//   .attr("class", "monthArc")
-//   .attr("id", function(d,i) { return "monthArc_"+i; }) //Give each slice a unique ID
-//   .attr("d", arc);
-//
-//
-
-// stretching arc
-//Create the SVG
-// var svg = d3.select("body").append("svg")
-//   .attr("width", 400)
-//   .attr("height", 400);
-//
-// //Create an SVG arc starting at location [0,300], ending at [400,300] with a radius of 200 (circle)
-// var path = svg.append("path")
-//   .attr("id", "wavy") //A unique ID to reference later
-//   .attr("d", "M0,300 A200,200 0 0,1 400,300") //Notation for an SVG path
-//   .style("fill", "none")
-//   .style("stroke", "#AAAAAA")
-//   .style("stroke-dasharray", "5,5");
-//
-// //Create an SVG text element and append a textPath element
-// var textArc = svg.append("text")
-//   .style("text-anchor","middle")
-//   .append("textPath")				//append a textPath to the text element
-//   .attr("xlink:href", "#wavy") 	//place the ID of the path here
-//   .attr("startOffset", "50%")		//place the text halfway on the arc
-//   .text("Yay, my text is moving back & forth");
-//
-// //Transition to an arc starting at location [75,300], ending at [325,300] with a radius of 125 (circle)
-// //svg.selectAll("path")
-// //	.transition().duration(2000).delay(2000)
-// //	.attr("d", "M75,300 A125,125 0 0,1 325,300");
-//
-// function repeat() {
-//   path
-//     .transition().duration(2000)
-//   //Transition to an arc starting at location [75,300], ending at [325,300] with a radius of 125 (circle)
-//     .attr("d", "M50,300 A150,150 0 0,1 350,300")
-//     .transition().duration(2000)
-//   //Transition back to original arc
-//     .attr("d", "M0,300 A200,200 0 0,1 400,300")
-//     .each("end", repeat);
-// }//repeat
-//
-// //Repeatedly change the arcs back and forth
-// repeat();
-
-// // Scales & Data
-// start date number and end date number of the months in a year
-// var monthData = [
-//   {month: "January", 	startDateID: 0, 	endDateID: 30},
-//   {month: "February", startDateID: 31, 	endDateID: 58},
-//   {month: "March", 	startDateID: 59, 	endDateID: 89},
-//   {month: "April", 	startDateID: 90, 	endDateID: 119},
-//   {month: "May", 		startDateID: 120, 	endDateID: 150},
-//   {month: "June", 	startDateID: 151, 	endDateID: 180},
-//   {month: "July", 	startDateID: 181, 	endDateID: 211},
-//   {month: "August", 	startDateID: 212, 	endDateID: 242},
-//   {month: "September",startDateID: 243, 	endDateID: 272},
-//   {month: "October", 	startDateID: 273, 	endDateID: 303},
-//   {month: "November", startDateID: 306, 	endDateID: 333},
-//   {month: "December",	startDateID: 334, 	endDateID: 364}
-// ];
-
-
-//
-// //Creates a function that makes SVG paths in the shape of arcs with the specified inner and outer radius
-// var arc = d3.svg.arc()
-//   .innerRadius(width*0.9/2)
-//   .outerRadius(width*0.9/2 + 30);
-//
-// //Creates function that will turn the month data into start and end angles
-// var pie = d3.layout.pie()
-//   .value(function(d) { return d.endDateID - d.startDateID; })
-//   .padAngle(.01)
-//   .sort(null);
-//
-// // slices
-// //Draw the arcs themselves
-// svg.selectAll(".monthArc")
-//   .data(pie(monthData))
-//   .enter().append("path")
-//   .attr("class", "monthArc")
-//   .attr("id", function(d,i) { return "monthArc_"+i; })
-//   .attr("d", arc);
-//
-// //Append the month names within the arcs
-// svg.selectAll(".monthText")
-//   .data(monthData)
-//   .enter().append("text")
-//   .attr("class", "monthText")
-//   .attr("x", 5) //Move the text from the start angle of the arc
-//   .attr("dy", 18) //Move the text down
-//   .append("textPath")
-//   .attr("xlink:href",function(d,i){return "#monthArc_"+i;})
-//   .text(function(d){return d.month;});
-
+// passing multiple arrays signal to d3 to support multiple
+// circles
 function circles() {
   return [
     // {name: "c1", value: 1, dataItems: donutDataList[0]}
     // , {name: "c2", value: 2, dataItems: donutDataList[1]}
     // donutDataList[0], donutDataList[1]
-    ["a", "b", "c"]
+      ["a", "b", "c"]
     , ["x", "y", "z"]
     , ["m", "n", "o"]
   ]
@@ -165,9 +20,6 @@ function circles() {
 var svg;
 
 function showCircle (donutDataList) {
-
-  var donutData = donutDataList[0];
-
 
   // animals
 //Create a color scale
