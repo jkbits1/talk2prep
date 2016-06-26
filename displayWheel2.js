@@ -21,7 +21,6 @@ var svg;
 
 function showCircle (donutDataList) {
 
-  // animals
 //Create a color scale
   var colorScale = d3.scale.linear()
     .domain([1, 3.5, 6])
@@ -30,8 +29,6 @@ function showCircle (donutDataList) {
 
 //Create an arc function
   var arc = d3.svg.arc()
-    // .innerRadius(width * 0.75 / 2)
-    // .outerRadius(width * 0.75 / 2 + 30);
       .innerRadius(function (d) {
         return d.data.sz * 0.1 * width * 0.75 / 2;
       })
@@ -40,23 +37,28 @@ function showCircle (donutDataList) {
       })
   // .cornerRadius(6)
     ;
-// .innerRadius(width*0.55/2)
-//   .outerRadius(width*0.55/2 + 30);
 
-// Set-up - months on chart, animals on chart
   var screenWidth = window.innerWidth;
 
-  var margin = {left: 20, top: 20, right: 20, bottom: 20},
-    width = Math.min(screenWidth, 500) - margin.left - margin.right,
-    height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
+  var initWH = 500;
 
-  // width = Math.min(screenWidth, 1000) - margin.left - margin.right,
-  //   height = Math.min(screenWidth, 1000) - margin.top - margin.bottom;
+  // this seems to work pretty well, a bit iffy for 2.0 upwards though
+  // var adjRatio = 0.7;
+  var adjRatio = 1.0;
+  // var adjRatio = 1.7;
+  // var adjRatio = 2.2;
+
+  var margin = {left: 20, top: 20, right: 20, bottom: 20},
+    // width = Math.min(screenWidth, 500) - margin.left - margin.right,
+    // height = Math.min(screenWidth, 500) - margin.top - margin.bottom;
+
+  width = Math.min(screenWidth, 500 * adjRatio) - margin.left - margin.right,
+    height = Math.min(screenWidth, 500 * adjRatio) - margin.top - margin.bottom;
 
   svg = d3.select("#chart svg").remove();
 
   // var
-    svg = d3.select("#chart").append("svg")
+  svg = d3.select("#chart").append("svg")
     .attr("width", (width + margin.left + margin.right))
     .attr("height", (height + margin.top + margin.bottom))
     .append("g").attr("class", "wrapper")
@@ -65,7 +67,6 @@ function showCircle (donutDataList) {
     //   .attr("transform", "translate(250,250)")
     ;
 
-// test
   svg = svg.selectAll("g")
     .data(circles)
     // .data(circles, d => {
@@ -73,7 +74,7 @@ function showCircle (donutDataList) {
     // })
     .enter().append("g")
     .attr("class", "circles")
-  ;
+    ;
 
   // NOTE set MATRIX
   // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md
@@ -109,16 +110,6 @@ function showCircle (donutDataList) {
   function donuts ()
   {
 //Create the donut slices
-
-// experiments
-//     svg = d3.select("#chart").selectAll("g")
-    //
-    //
-    // svg
-    // .each(function (d) {
-    //   this._value = d.value;
-    //
-    // });
 
   svg.selectAll(".donutArcSlices")
     // .selectAll(".donutArcSlices")
@@ -233,9 +224,7 @@ function showCircle (donutDataList) {
         }
       }
 
-      if (i >= 4) {
-        // adjDy -= 10;
-      }
+      adjDy = adjDy * adjRatio;
 
       return adjDy;
     })
