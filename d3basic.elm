@@ -33,33 +33,27 @@ initialModel =
 init : (Model, Cmd Msg)
 init = ( initialModel, Cmd.none)
 
--- update
-
-type Msg = 
+type Msg =
   Change String
   | Check
   | Suggest (List String)
-  
---port check : List String -> Cmd msg
+
+-- outgoing port to js
 port check : List (List WheelItem) -> Cmd msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of 
     Change data -> 
---      (Model [data] [], Cmd.none)
       (initialModel, Cmd.none)
 
     Check ->
---      (model, check model.wheelItems)
---      (model, check <| wheelItemNames model.wheelItems)
       (model, check model.wheelDataList)
 
     Suggest responses ->
       (
         newModelFromResponses model responses
         , Cmd.none)
---    (Model model.wheelItems newDataItems, Cmd.none)
 
 newModelFromResponses model rs =
   let newWheelData1 =
@@ -73,8 +67,7 @@ newModelFromResponses model rs =
     , dataProcessedItems = []
     }
 
--- subscriptions
-
+-- subscriptions, data responses from js
 port dataProcessedItems : (List String -> msg) -> Sub msg
 
 subscriptions : Model -> Sub Msg
@@ -86,7 +79,6 @@ view model = div []
     input [ onInput Change ] []
   , button [ onClick Check ] [ text "check"]
   , div [] [ text <| String.join ", "
---      model.dataProcessedItems
         <| map .name <| headWD model.wheelDataList
       ]
   ]
